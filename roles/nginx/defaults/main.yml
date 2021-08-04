@@ -1,0 +1,8 @@
+---
+docker_network_name: nginx
+data_dir: /data
+
+nginx_image: "{{ nginx_image_version }}"
+nginx_name: nginx
+nginx_conf_dir: "{{ data_dir }}/{{ nginx_name}}/conf.d"
+...

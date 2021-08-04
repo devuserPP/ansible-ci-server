@@ -1,0 +1,11 @@
+---
+docker_network_name: logstash 
+data_dir: /data
+
+elasticsearch_name: elasticsearch
+
+logstash_conf_dir: "{{ data_dir }}/logstash"
+logstash_name: logstash
+logstash_image: logstash 
+logstash_version: 6.6.2 
+...

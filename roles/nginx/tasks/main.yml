@@ -1,0 +1,25 @@
+---
+- name: Ensure nginx conf dir {{ nginx_conf_dir }} exists
+  file:
+    path: "{{ nginx_conf_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Copy nginx config file
+  template:
+    dest: "{{ nginx_conf_dir }}/default.conf"
+    src: default.conf.j2
+
+- name: Create a docker container {{ nginx_name }}
+  docker_container: 
+    name: "{{ nginx_name }}"
+    image: "{{ nginx_image }}"
+    restart: true
+    published_ports: 
+      - "80:80"
+    volumes:
+      - "{{ nginx_conf_dir }}:/etc/nginx/conf.d"
+    networks: 
+      - name: "{{ docker_network_name }}"
+  become: true
+...

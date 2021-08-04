@@ -1,0 +1,7 @@
+---
+docker_systemd_dir: /etc/systemd/system/docker.service.d
+docker_systemd_http_file: http-proxy.conf
+docker_systemd_https_file: https-proxy.conf
+docker_service_name: docker
+docker_private_registries: [] 
+...

@@ -1,0 +1,6 @@
+---
+docker_conf_dir: /etc/docker
+docker_daemon_conf_file: daemon.json
+docker_service_name: docker
+docker_private_registries: []
+...

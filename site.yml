@@ -1,0 +1,8 @@
+---
+- import_playbook: docker.yml
+- import_playbook: sonarqube.yml
+- import_playbook: jenkins.yml
+- import_playbook: pgadmin.yml
+- import_playbook: logstash.yml
+- import_playbook: nginx.yml
+...

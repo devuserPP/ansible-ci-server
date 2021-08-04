@@ -1,0 +1,49 @@
+---
+- name: Ensure Jenkins server home dir {{ jenkins_home_dir }} exists
+  file:
+    path: "{{ jenkins_home_dir }}"
+    state: directory
+    mode: 0777
+
+- name: Ensure inside Jenkins server home dir {{ init.groovy.d}} exists
+  file:
+    path: "{{ jenkins_init }}"
+    state: directory
+    mode: 0777
+
+
+- name: Copy jenkins config file "security.groovy"
+  template:
+    src: "security.groovy"
+    dest: "{{ jenkins_init }}/security.groovy"
+    mode: 0777
+
+    
+
+
+    
+- name: Copy jenkins config file "ScriptApprovalConfig.groovy"
+  template:
+    src: "ScriptApprovalConfig.groovy"
+    dest: "{{ jenkins_init }}/ScriptApprovalConfig.groovy"
+    mode: 0777
+
+
+
+
+
+- name: Create a docker container {{ jenkins_name }}
+  docker_container:
+    name: "{{ jenkins_name }}"
+    image: "{{ jenkins_image }}"
+    user: root
+    volumes:
+      - "{{ jenkins_home_dir }}:/var/jenkins_home"
+      - /var/run/docker.sock:/var/run/docker.sock
+      
+    env:
+      JENKINS_OPTS: --prefix=/jenkins
+      jenkins_java_options: "-Djenkins.install.runSetupWizard=false"
+    networks:
+      - name: "{{ docker_network_name }}"
+...

@@ -1,0 +1,23 @@
+---
+- name: Ensure kibana conf dir {{ kibana_conf_dir }} exists
+  file:
+    path: "{{ kibana_conf_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Copy kibana config file
+  template:
+    dest: "{{ kibana_conf_dir }}/kibana.yml"
+    src: kibana.yml.j2
+    mode: 0755
+
+- name: Create a docker container {{ kibana_name }}
+  docker_container:
+    name: "{{ kibana_name }}"
+    image: "{{ kibana_image }}:{{ kibana_version }}"
+    restart: true
+    volumes:
+      - "{{ kibana_conf_dir }}/kibana.yml:/usr/share/kibana/config/kibana.yml"
+    networks:
+      - name: "{{ docker_network_name }}"
+...

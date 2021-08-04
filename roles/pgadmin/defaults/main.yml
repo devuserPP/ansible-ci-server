@@ -1,0 +1,10 @@
+---
+docker_network_name: pgadmin 
+data_dir: /data
+
+pgadmin_name: pgadmin
+pgadmin_image: dpage/pgadmin4:latest
+pgadmin_var_dir: "{{ data_dir }}/pgadmin/var"
+pgadmin_user: admin@example.com
+pgadmin_password: admin
+...

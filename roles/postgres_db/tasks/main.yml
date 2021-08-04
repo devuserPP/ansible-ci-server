@@ -1,0 +1,9 @@
+---
+- name: Check that the postgres db {{ postgres_db }} exists
+  command: docker exec {{ postgres_name }} /usr/bin/psql -U {{ postgres_user }} -tc "SELECT 1 FROM pg_database WHERE datname = '{{ postgres_db }}'"
+  register: db_exists
+
+- name: Create the postgres db {{ postgres_db }}
+  command: docker exec {{ postgres_name }} /usr/bin/psql -U {{ postgres_user }} -c "CREATE DATABASE {{ postgres_db }}"
+  when: db_exists.stdout.find('1') == -1
+...

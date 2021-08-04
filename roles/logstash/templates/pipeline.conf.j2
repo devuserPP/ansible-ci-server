@@ -1,0 +1,19 @@
+input {
+  beats {
+    port => 5044
+  }
+}
+filter {
+  if [prospector][type] == "docker" {
+    mutate {
+      add_field => { "app_name" => "%{[docker][container][name]}" }
+    }
+  }
+}
+output {
+  elasticsearch {
+    hosts => ["http://{{ elasticsearch_name }}:9200"]
+	index => "%{app_name}_%{env_type}_%{+YYYYMMdd}"
+  }
+}
+

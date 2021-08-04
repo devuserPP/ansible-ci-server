@@ -1,0 +1,8 @@
+---
+docker_network_name: elasticsearch 
+data_dir: /data
+
+elasticsearch_name: elasticsearch
+elasticsearch_image: elasticsearch 
+elasticsearch_version: 6.6.2 
+...

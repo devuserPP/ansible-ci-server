@@ -1,0 +1,26 @@
+---
+- name: Ensure postgres data dir {{ postgres_data_dir }} exists
+  file:
+    path: "{{ postgres_data_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Create a docker container {{ postgres_name }}
+  docker_container: 
+    name: "{{ postgres_name }}"
+    image: "{{ postgres_image }}"
+    volumes:
+      - "{{ postgres_data_dir }}:/var/lib/postgresql/data"
+    networks: 
+      - name: "{{ docker_network_name }}"
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+
+- name: Waiting for postgres to start
+  command: docker exec {{ postgres_name }} pg_isready
+  register: isready
+  retries: 10
+  until: isready.rc == 0
+  delay: 3
+...

@@ -1,0 +1,34 @@
+---
+- name: Check {{ docker_systemd_dir }}  directory exists
+  file: 
+    path: "{{ docker_systemd_dir }}" 
+    state: directory
+    mode: 0755
+  become: true
+
+- name: Create HTTP proxy file 
+  template: 
+    src: http.conf.j2
+    dest: "{{ docker_systemd_dir }}/{{ docker_systemd_http_file }}"
+    mode: 0777
+  register: http_result
+  become: true
+  when: http_proxy is defined
+
+- name: Create HTTPS proxy file 
+  template: 
+    src: https.conf.j2
+    dest: "{{ docker_systemd_dir }}/{{ docker_systemd_https_file }}"
+    mode: 0777
+  register: https_result
+  become: true
+  when: https_proxy is defined
+
+- name: Restart the {{ docker_service_name }} service
+  systemd: 
+    name: "{{ docker_service_name }}"
+    state: restarted
+    daemon_reload: yes
+  become: true
+  when: http_result.changed or https_result.changed
+...

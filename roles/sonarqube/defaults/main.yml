@@ -1,0 +1,10 @@
+---
+docker_network_name: sonarqube
+
+sonarqube_image: "{{ sonarqube_image_version }}"
+sonarqube_name: sonarqube 
+sonarqube_web_context: /sonarqube
+sonarqube_db: sonarqube
+sonarqube_jdbc_url: jdbc:postgresql://{{ postgres_name }}.{{ docker_network_name }}/{{ sonarqube_db }}
+sonarqube_jdbc_user: "{{ postgres_user }}"
+sonarqube_jdbc_password: "{{ postgres_password }}"

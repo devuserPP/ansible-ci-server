@@ -1,0 +1,4 @@
+Groovy bootstrap scripts for Jenkins
+https://github.com/CodeValet/master/tree/master/init.groovy.d
+https://github.com/samrocketman/jenkins-bootstrap-shared
+https://gist.github.com/fishi0x01/7c2d29afbaa0f16126eb4d4b35942f76

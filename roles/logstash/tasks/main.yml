@@ -1,0 +1,24 @@
+---
+- name: Ensure logstash conf dir {{ logstash_conf_dir }} exists
+  file:
+    path: "{{ logstash_conf_dir }}"
+    state: directory
+    mode: 0755
+
+- name: Copy pipelines config file
+  template:
+    dest: "{{ logstash_conf_dir }}/pipeline.conf"
+    src: pipeline.conf.j2
+    mode: 0755
+
+- name: Create a docker container {{ logstash_name }}
+  docker_container:
+    name: "{{ logstash_name }}"
+    image: "{{ logstash_image }}:{{ logstash_version }}"
+    volumes:
+      - "{{ logstash_conf_dir }}:/usr/share/logstash/pipeline"
+    ports:
+      - 5044:5044
+    networks:
+      - name: "{{ docker_network_name }}"
+...

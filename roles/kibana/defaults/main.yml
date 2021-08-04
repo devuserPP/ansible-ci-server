@@ -1,0 +1,11 @@
+---
+docker_network_name: kibana 
+data_dir: /data
+
+elasticsearch_name: elasticsearch
+
+kibana_name: kibana
+kibana_image: kibana 
+kibana_version: 6.6.2 
+kibana_conf_dir: "{{ data_dir }}/kibana"
+...

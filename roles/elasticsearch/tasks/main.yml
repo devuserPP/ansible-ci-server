@@ -1,0 +1,13 @@
+---
+- name: Create a docker container {{ elasticsearch_name }}
+  docker_container:
+    name: "{{ elasticsearch_name }}"
+    image: "{{ elasticsearch_image }}:{{ elasticsearch_version }}"
+    env: 
+      discovery.type: single-node
+    published_ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - name: "{{ docker_network_name }}"
+...

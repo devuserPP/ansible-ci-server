@@ -1,0 +1,15 @@
+---
+#definice promennych
+docker_network_name: jenkins
+data_dir: /data
+jenkins_admin_username: admin
+jenkins_admin_password: admin
+
+
+jenkins_name: jenkins
+jenkins_image: "{{ jenkins_image_version }}" 
+published_ports:
+      - "8080:8080"
+jenkins_home_dir: "{{ data_dir }}/jenkins/home"
+jenkins_init: "{{ data_dir }}/jenkins/home/init.groovy.d"
+...

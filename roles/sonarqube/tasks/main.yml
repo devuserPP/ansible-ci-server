@@ -1,0 +1,13 @@
+---
+- name: Create a docker container {{ sonarqube_name }}
+  docker_container: 
+    name: "{{ sonarqube_name }}"
+    image: "{{ sonarqube_image }}"
+    networks: 
+      - name: "{{ docker_network_name }}"
+    env:
+      sonar.web.context: "{{ sonarqube_web_context }}"
+      sonar.jdbc.username: "{{ sonarqube_jdbc_user }}"
+      sonar.jdbc.password: "{{ sonarqube_jdbc_password }}"
+      sonar.jdbc.url: "{{ sonarqube_jdbc_url }}"
+...

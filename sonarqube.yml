@@ -1,0 +1,12 @@
+---
+- hosts: all
+  environment: 
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ https_proxy }}"
+  roles:
+    - postgres
+    - role: postgres_db
+      postgres_db: "{{ sonarqube_db }}"
+    - sonarqube 
+  become: true
+...

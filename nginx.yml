@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    - nginx
+  become: true
+...

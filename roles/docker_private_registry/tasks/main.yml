@@ -1,0 +1,16 @@
+---
+- name: Check {{ docker_conf_dir }} directory exists
+  file: 
+    path: "{{ docker_conf_dir }}" 
+    state: directory
+    mode: 0755
+  become: true
+
+- name: Mark the private registry as insecure
+  template: 
+    src: daemon.json.j2
+    dest: "{{ docker_conf_dir }}/{{ docker_daemon_conf_file }}"
+    mode: 0777
+  become: true
+  notify: Restart the docker service
+...

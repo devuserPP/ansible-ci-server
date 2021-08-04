@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  environment: 
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ https_proxy }}"
+  
+  vars:
+     pip_install_packages:
+      - name: docker
+
+  roles:
+    - geerlingguy.docker
+    - geerlingguy.pip
+    - docker_proxy
+    - docker_network
+...

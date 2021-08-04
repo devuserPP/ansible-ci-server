@@ -1,0 +1,21 @@
+---
+- name: Ensure pgadmin var dir {{ pgadmin_var_dir }} exists
+  file:
+    path: "{{ pgadmin_var_dir }}"
+    state: directory
+    mode: 0777
+
+- name: Create a docker container {{ pgadmin_name }}
+  docker_container:
+    name: "{{ pgadmin_name }}"
+    image: "{{ pgadmin_image }}"
+    user: root
+    volumes:
+      - "{{ pgadmin_var_dir }}:/var/lib/pgadmin"
+    env:
+      PGADMIN_DEFAULT_EMAIL: "{{ pgadmin_user }}"
+      PGADMIN_DEFAULT_PASSWORD: "{{ pgadmin_password }}"
+      SCRIPT_NAME: "/pgadmin"
+    networks:
+      - name: "{{ docker_network_name }}"
+...

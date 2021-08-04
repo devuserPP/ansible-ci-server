@@ -1,0 +1,21 @@
+---
+http_proxy_host: 10.0.0.2
+http_proxy_port: 9090
+http_proxy: http://{{ http_proxy_host }}:{{ http_proxy_port }}
+
+https_proxy_host: 10.0.0.2
+https_proxy_port: 9090
+https_proxy: http://{{ http_proxy_host }}:{{ http_proxy_port }}
+
+data_dir: /data
+
+docker_private_registries: ["10.0.0.3:8082", "10.0.0.3:8083"]
+docker_network_name: mynetwork.example.com
+
+# Version of docker images
+jenkins_image_version: jenkinsci/blueocean:1.16.0
+nginx_image_version: nginx:1.16.0
+sonarqube_image_version: sonarqube:6.7-community
+postgres_image_version: postgres:11.3
+
+...
